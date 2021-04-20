@@ -1,58 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateFirstName,updateLastName} from './redux/actions/UserAction';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputvalue: '',
+    };
+  }
+
+  changeFirstName = () => {
+    this.props.updateFirstName(this.state.inputValue);
+  };
+  changeLastName = () => {
+    this.props.updateLastName(this.state.inputValue);
+  };
+  render() {
+    return (
+      <div>
+        <p>hello {this.props.fullName}</p>
+
+        <input
+          type='text'
+          value={this.state.inputValue}
+          onChange={(e) => this.setState({ inputValue: e.target.value })}
+        />
+
+        <button onClick={this.changeFirstName}> changefirstname</button>
+        <button onClick={this.changeLastName}>changeLastName</button>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStoreStateToComponentsProps = (state) => {
+  return {
+    postInfo: state.postInfo,
+    fullName: state.userInfo.firstName + '' + state.userInfo.lastName,
+  };
+};
+
+export default connect(mapStoreStateToComponentsProps, { updateFirstName,updateLastName })(
+  App
+);
