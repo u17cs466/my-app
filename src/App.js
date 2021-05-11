@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <p>hello {this.props.fullName}</p>
+        <p>Srikanth {this.props.fullName}</p>
 
         <input
           type='text'
