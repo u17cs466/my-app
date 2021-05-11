@@ -1,12 +1,12 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
-import { updateFirstName,updateLastName} from './redux/actions/UserAction';
+import { Component } from "react";
+import { connect } from "react-redux";
+import { updateFirstName, updateLastName } from "./redux/actions/UserAction";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputvalue: '',
+      inputvalue: "",
     };
   }
 
@@ -19,10 +19,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <p>Srikanth {this.props.fullName}</p>
+        <p>Srikanth Damacharla {this.props.fullName}</p>
 
         <input
-          type='text'
+          type="text"
           value={this.state.inputValue}
           onChange={(e) => this.setState({ inputValue: e.target.value })}
         />
@@ -37,10 +37,11 @@ class App extends Component {
 const mapStoreStateToComponentsProps = (state) => {
   return {
     postInfo: state.postInfo,
-    fullName: state.userInfo.firstName + '' + state.userInfo.lastName,
+    fullName: state.userInfo.firstName + "" + state.userInfo.lastName,
   };
 };
 
-export default connect(mapStoreStateToComponentsProps, { updateFirstName,updateLastName })(
-  App
-);
+export default connect(mapStoreStateToComponentsProps, {
+  updateFirstName,
+  updateLastName,
+})(App);
